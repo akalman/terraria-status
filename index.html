@@ -1,0 +1,67 @@
+<html>
+    <body>
+        <div id="mask" class="loading"></div>
+        <div id="subbody">
+            <div>
+                <button id="status">Update Status</button>
+                <span id="status-output"></span>
+            </div>
+            <button id="start">Start Server</button>
+            <button id="stop">Stop Server</button>
+        </div>
+        <script>
+            function updateStatus() {
+                var outputEle = document.getElementById('status-output');
+                outputEle.innerHTML = '';
+                var req = new Request('/status', { method: 'GET' });
+                fetch(req)
+                    .then(res => res.json())
+                    .then(body => outputEle.innerHTML = body)
+                    .then(ignored => document.getElementById('mask').classList.remove('loading'));
+            }
+
+            window.addEventListener('load', function() {
+                updateStatus();
+            });
+
+            document.getElementById('start').addEventListener('click', function() {
+                document.getElementById('mask').classList.add('loading');
+                var req = new Request('/start', { method: 'PUT' });
+                fetch(req)
+                    .then(updateStatus);
+            });
+            document.getElementById('stop').addEventListener('click', function() {
+                document.getElementById('mask').classList.add('loading');
+                var req = new Request('/stop', { method: 'PUT' });
+                fetch(req)
+                    .then(updateStatus);
+            });
+            document.getElementById('status').addEventListener('click', function() {
+                document.getElementById('mask').classList.add('loading');
+                updateStatus();
+            });
+        </script>
+        <style type="text/css">
+            #mask {
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                background-color: rgba(1,1,1,.3);
+                display: none;
+            }
+
+            #mask.loading {
+                display: inherit;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            #subbody {
+                margin: 8px;
+            }
+        </style>
+    </body>
+</html>

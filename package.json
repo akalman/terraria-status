@@ -1,0 +1,25 @@
+{
+  "name": "terraria-status",
+  "version": "0.1.0",
+  "description": "simple lambda API for a terraria server status page",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "zip -rf terraria-status.zip *",
+    "full-build": "rm -f terraria-status.zip && zip -r terraria-status.zip *"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akalman/terraria-status.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/akalman/terraria-status/issues"
+  },
+  "homepage": "https://github.com/akalman/terraria-status#readme",
+  "dependencies": {
+    "aws-sdk": "^2.753.0",
+    "simple-ssh": "^1.0.0"
+  }
+}
